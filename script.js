@@ -94,7 +94,7 @@ let account;
 function checkUser() {
   let login = false;
   console.log('checking')
-  accounts.map(i => () => {
+  accounts.map(i => function () {
     if (i.userName === userName && i.pin === Number(userPin)) {
       account = i;
       login = true;
@@ -107,9 +107,9 @@ function checkUser() {
 }
 
 const userLogin = e => {
+  e.preventDefault();
   userName = inputLoginUsername.value;
   userPin = inputLoginPin.value;
-  e.preventDefault();
   console.log('here');
   if (checkUser()) {
     console.log('now inside');
@@ -119,3 +119,6 @@ const userLogin = e => {
 
 btnLogin.addEventListener('click', userLogin);
 // const getUserCredentials =
+
+
+// use async await 
