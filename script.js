@@ -86,39 +86,50 @@ const createUserName = element => {
 accounts.forEach(element => {
   element.userName = createUserName(element);
 });
-// console.log(account1);
+
+
 let userName;
 let userPin;
 let account;
 
+// very inefficient make one using find() instead
 function checkUser() {
   let login = false;
-  console.log('checking')
-  accounts.map(i => function () {
+  const val = accounts.map(i => {
     if (i.userName === userName && i.pin === Number(userPin)) {
       account = i;
       login = true;
-    } else {
-      console.log('did not match');
-    }
-    console.log(account);
-    return login;
+    } 
   });
+  return login
+}
+
+function changeWelcomeLabel() {
+  labelWelcome.textContent = `Welcome Back ${account.owner}`;
+}
+function showCurrentBalance() {
+    const move = account.movements;
+    const currentBalance = move.reduce((acc,curr) => acc + curr,0);
+    labelBalance.textContent = String(currentBalance) + '$';
+}
+
+function startApp() {
+  containerApp.style.opacity = '1';
+  changeWelcomeLabel();
+  showCurrentBalance();
 }
 
 const userLogin = e => {
   e.preventDefault();
   userName = inputLoginUsername.value;
   userPin = inputLoginPin.value;
-  console.log('here');
   if (checkUser()) {
-    console.log('now inside');
     startApp();
   }
 };
 
 btnLogin.addEventListener('click', userLogin);
-// const getUserCredentials =
+
 
 
 // use async await 
